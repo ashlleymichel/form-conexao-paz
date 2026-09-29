@@ -179,6 +179,20 @@
         </div>
 
         <div class="form-group">
+            <label>Novo convertido?</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="novo-sim" name="novo_convertido" value="Sim" required>
+                    <label for="novo-sim">Sim</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="novo-nao" name="novo_convertido" value="Não">
+                    <label for="novo-nao">Não</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label>Gostaria de se envolver?</label>
             <div class="radio-group">
                 <div class="radio-item">
@@ -249,7 +263,6 @@
         
         form.reset();
         
-        // Devolve os dados salvos
         document.getElementById('campus').value = campusSalvo;
         document.getElementById('data').value = dataSalva;
         document.getElementById('recebido_por').value = recebidoPorSalvo;
