@@ -145,7 +145,7 @@
         box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.14);
     }
 
-    /* Caixa compacta, limitada à largura das respostas. */
+    /* Caixa compacta para Sim e Não. */
     .conexao-app .radio-group {
         display: inline-flex;
         align-items: center;
@@ -195,6 +195,47 @@
     .conexao-app .radio-item input[type="radio"]:focus-visible {
         outline: 2px solid var(--conexao-azul);
         outline-offset: 3px;
+    }
+
+    /* Caixas separadas para Novo nascido e Convidado. */
+    .conexao-app .radio-group-separado {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        width: fit-content;
+        max-width: 100%;
+        margin: 2px 0 0;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .conexao-app .radio-group-separado:focus-within {
+        border: none;
+        box-shadow: none;
+    }
+
+    .conexao-app .radio-group-separado .radio-item {
+        min-height: 52px;
+        padding: 12px 16px;
+        border: 1px solid #d2d2d7;
+        border-radius: 12px;
+        background: #fafafa;
+        transition:
+            border-color 0.2s ease,
+            background-color 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    .conexao-app .radio-group-separado .radio-item:has(input:checked) {
+        border-color: var(--conexao-azul);
+        background: #f0f7ff;
+    }
+
+    .conexao-app .radio-group-separado .radio-item:focus-within {
+        border-color: var(--conexao-azul);
+        box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.14);
     }
 
     .conexao-app button.submit-btn {
@@ -261,7 +302,6 @@
         font-size: 14px;
     }
 
-    /* Tela azul de abertura. */
     .conexao-app .conexao-abertura {
         position: fixed;
         inset: 0;
@@ -291,7 +331,6 @@
         text-wrap: balance;
     }
 
-    /* Mobile: largura total e altura mínima de uma tela. */
     @media (max-width: 767px),
            (max-width: 1024px) and (orientation: landscape) and (pointer: coarse) {
         .conexao-app {
@@ -356,7 +395,6 @@
         }
     }
 
-    /* Aproveita a largura do celular deitado. */
     @media (min-width: 600px) and (max-width: 1024px)
            and (orientation: landscape) and (pointer: coarse) {
         .conexao-app .row-contato,
@@ -507,7 +545,7 @@
                 <fieldset class="form-group">
                     <legend>A pessoa é:</legend>
 
-                    <div class="radio-group">
+                    <div class="radio-group radio-group-separado">
                         <label class="radio-item" for="tipo-novo-nascido">
                             <input
                                 type="radio"
@@ -659,7 +697,7 @@
         });
 
         // Envio para o Google Sheets.
-        // O campo novo_convertido envia "Novo nascido" ou "Convidado".
+        // novo_convertido envia "Novo nascido" ou "Convidado".
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
