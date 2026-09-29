@@ -655,14 +655,15 @@
         const msgErro = app.querySelector('#msg-erro');
         const whatsapp = app.querySelector('#whatsapp');
 
+        // Novo endereço do Google Apps Script.
         const scriptURL =
-            'https://script.google.com/macros/s/AKfycbyqSQBTiVJy5tbO4qyn68bpUjy5olvI-3x3SHUGUdLyXzopPozyDSME2dvnZQXuT4w/exec';
+            'https://script.google.com/macros/s/AKfycbzD11sJdyppzctnEYvenZ35BBXOfbHhp5TSz4QtVQdsz_SU_mXxU9EAV-SdRKnNr1DI/exec';
 
-        // Tela azul de abertura, seguida do formulário.
         const reduzirMovimento = window.matchMedia(
             '(prefers-reduced-motion: reduce)'
         ).matches;
 
+        // Tela azul de abertura, seguida do formulário.
         abertura.hidden = false;
         conteudo.inert = true;
 
@@ -697,7 +698,6 @@
         });
 
         // Envio para o Google Sheets.
-        // novo_convertido envia "Novo nascido" ou "Convidado".
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
@@ -716,7 +716,17 @@
 
                 if (!response.ok) {
                     throw new Error(
-                        'Falha no envio: ' + response.status
+                        'Falha HTTP no envio: ' + response.status
+                    );
+                }
+
+                // Confere a confirmação enviada pelo Apps Script.
+                const resultado = await response.json();
+
+                if (!resultado || resultado.result !== 'success') {
+                    throw new Error(
+                        resultado?.error ||
+                        'O Apps Script não confirmou a gravação.'
                     );
                 }
 
@@ -724,7 +734,7 @@
                 msgSucesso.hidden = false;
                 btnNovo.hidden = false;
 
-                msgSucesso.focus();
+                msgSucesso.focus({ preventScroll: true });
 
                 app.scrollIntoView({
                     behavior: reduzirMovimento ? 'auto' : 'smooth',
