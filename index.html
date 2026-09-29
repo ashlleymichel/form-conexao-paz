@@ -1,13 +1,11 @@
 <style>
-    .form-conexao-wrapper {
+    .conexao-app {
+        --conexao-azul: #0071e3;
         width: 100%;
-        max-width: 760px;
-        margin: 24px auto;
-        padding: clamp(24px, 5vw, 48px);
-        border: 1px solid #e8e8ed;
-        border-radius: 28px;
-        background: #ffffff;
-        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.06);
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: 40px 20px;
+        background: #f5f5f7;
         color: #1d1d1f;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
             Roboto, Helvetica, Arial, sans-serif;
@@ -15,32 +13,65 @@
         -webkit-font-smoothing: antialiased;
     }
 
-    .form-conexao-wrapper *,
-    .form-conexao-wrapper *::before,
-    .form-conexao-wrapper *::after {
+    .conexao-app *,
+    .conexao-app *::before,
+    .conexao-app *::after {
         box-sizing: border-box;
     }
 
-    .form-conexao-wrapper .form-group {
+    .conexao-app [hidden] {
+        display: none !important;
+    }
+
+    .conexao-app .conexao-conteudo {
+        width: 100%;
+        max-width: 760px;
+        margin: 0 auto;
+    }
+
+    .conexao-app .conexao-cabecalho {
+        margin-bottom: 24px;
+        text-align: center;
+    }
+
+    .conexao-app .conexao-titulo {
+        margin: 0;
+        color: #1d1d1f;
+        font-size: clamp(26px, 4vw, 36px);
+        font-weight: 600;
+        line-height: 1.15;
+        letter-spacing: -1px;
+        text-wrap: balance;
+    }
+
+    .conexao-app .form-conexao-wrapper {
+        width: 100%;
+        padding: clamp(24px, 5vw, 48px);
+        border: 1px solid #e8e8ed;
+        border-radius: 28px;
+        background: #ffffff;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.06);
+    }
+
+    .conexao-app .form-group {
         width: 100%;
         margin: 0 0 24px;
     }
 
-    .form-conexao-wrapper .row {
-        display: flex;
+    .conexao-app .row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 20px;
-        width: 100%;
     }
 
-    .form-conexao-wrapper .col {
+    .conexao-app .col {
         display: flex;
-        flex: 1;
         flex-direction: column;
         min-width: 0;
     }
 
-    .form-conexao-wrapper label,
-    .form-conexao-wrapper legend {
+    .conexao-app label,
+    .conexao-app legend {
         display: block;
         margin-bottom: 8px;
         padding: 0;
@@ -50,21 +81,22 @@
         letter-spacing: -0.15px;
     }
 
-    .form-conexao-wrapper fieldset {
+    .conexao-app fieldset {
         min-width: 0;
         padding: 0;
         border: 0;
     }
 
-    .form-conexao-wrapper input[type="text"],
-    .form-conexao-wrapper input[type="number"],
-    .form-conexao-wrapper input[type="tel"],
-    .form-conexao-wrapper input[type="date"],
-    .form-conexao-wrapper select,
-    .form-conexao-wrapper textarea {
+    .conexao-app input[type="text"],
+    .conexao-app input[type="number"],
+    .conexao-app input[type="tel"],
+    .conexao-app input[type="date"],
+    .conexao-app select,
+    .conexao-app textarea {
         display: block;
         width: 100%;
         min-width: 0;
+        max-width: 100%;
         min-height: 52px;
         margin: 0;
         padding: 14px 16px;
@@ -82,13 +114,13 @@
             box-shadow 0.2s ease;
     }
 
-    .form-conexao-wrapper input::placeholder,
-    .form-conexao-wrapper textarea::placeholder {
+    .conexao-app input::placeholder,
+    .conexao-app textarea::placeholder {
         color: #86868b;
         opacity: 1;
     }
 
-    .form-conexao-wrapper select {
+    .conexao-app select {
         appearance: none;
         -webkit-appearance: none;
         padding-right: 44px;
@@ -99,29 +131,30 @@
         cursor: pointer;
     }
 
-    .form-conexao-wrapper textarea {
+    .conexao-app textarea {
         min-height: 120px;
         resize: vertical;
     }
 
-    .form-conexao-wrapper input:not([type="radio"]):focus,
-    .form-conexao-wrapper select:focus,
-    .form-conexao-wrapper textarea:focus {
+    .conexao-app input:not([type="radio"]):focus,
+    .conexao-app select:focus,
+    .conexao-app textarea:focus {
         outline: none;
-        border-color: #0071e3;
+        border-color: var(--conexao-azul);
         background-color: #ffffff;
         box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.14);
     }
 
-    /* Uma única caixa para as opções Sim e Não. */
-    .form-conexao-wrapper .radio-group {
-        display: flex;
+    /* Cada caixa ocupa somente a largura das respostas. */
+    .conexao-app .radio-group {
+        display: inline-flex;
         align-items: center;
         flex-wrap: wrap;
         gap: 24px;
-        width: 100%;
+        width: fit-content;
+        max-width: 100%;
         margin: 2px 0 0;
-        padding: 6px 16px;
+        padding: 4px 16px;
         border: 1px solid #d2d2d7;
         border-radius: 12px;
         background: #fafafa;
@@ -130,12 +163,12 @@
             box-shadow 0.2s ease;
     }
 
-    .form-conexao-wrapper .radio-group:focus-within {
-        border-color: #0071e3;
+    .conexao-app .radio-group:focus-within {
+        border-color: var(--conexao-azul);
         box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.14);
     }
 
-    .form-conexao-wrapper .radio-item {
+    .conexao-app .radio-item {
         display: inline-flex;
         flex: 0 0 auto;
         align-items: center;
@@ -150,29 +183,29 @@
         cursor: pointer;
     }
 
-    .form-conexao-wrapper .radio-item input[type="radio"] {
+    .conexao-app .radio-item input[type="radio"] {
         flex-shrink: 0;
         width: 18px;
         height: 18px;
         margin: 0;
-        accent-color: #0071e3;
+        accent-color: var(--conexao-azul);
         cursor: pointer;
     }
 
-    .form-conexao-wrapper .radio-item input[type="radio"]:focus-visible {
-        outline: 2px solid #0071e3;
+    .conexao-app .radio-item input[type="radio"]:focus-visible {
+        outline: 2px solid var(--conexao-azul);
         outline-offset: 3px;
     }
 
-    .form-conexao-wrapper button.submit-btn {
+    .conexao-app button.submit-btn {
         display: block;
         width: 100%;
-        min-height: 52px;
+        min-height: 54px;
         margin-top: 12px;
-        padding: 15px 24px;
+        padding: 16px 24px;
         border: none;
         border-radius: 14px;
-        background: #0071e3;
+        background: var(--conexao-azul);
         color: #ffffff;
         font: inherit;
         font-size: 17px;
@@ -186,26 +219,26 @@
             box-shadow 0.2s ease;
     }
 
-    .form-conexao-wrapper button.submit-btn:hover:not(:disabled) {
+    .conexao-app button.submit-btn:hover:not(:disabled) {
         background: #0077ed;
         box-shadow: 0 4px 16px rgba(0, 113, 227, 0.18);
     }
 
-    .form-conexao-wrapper button.submit-btn:active:not(:disabled) {
+    .conexao-app button.submit-btn:active:not(:disabled) {
         background: #0068d1;
     }
 
-    .form-conexao-wrapper button.submit-btn:focus-visible {
-        outline: 3px solid #0071e3;
+    .conexao-app button.submit-btn:focus-visible {
+        outline: 3px solid var(--conexao-azul);
         outline-offset: 4px;
     }
 
-    .form-conexao-wrapper button.submit-btn:disabled {
+    .conexao-app button.submit-btn:disabled {
         opacity: 0.6;
         cursor: wait;
     }
 
-    .form-conexao-wrapper .mensagem-sucesso {
+    .conexao-app .mensagem-sucesso {
         margin: 0 0 20px;
         padding: 32px 24px;
         border: 1px solid #cce8d5;
@@ -218,7 +251,7 @@
         letter-spacing: -0.3px;
     }
 
-    .form-conexao-wrapper .mensagem-erro {
+    .conexao-app .mensagem-erro {
         margin: 16px 0;
         padding: 16px;
         border: 1px solid #f0c9c9;
@@ -228,248 +261,385 @@
         font-size: 14px;
     }
 
-    .form-conexao-wrapper [hidden] {
-        display: none !important;
+    /* Tela azul exibida ao abrir o formulário. */
+    .conexao-app .conexao-abertura {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: var(--conexao-azul);
+        opacity: 1;
+        transition: opacity 0.4s ease;
     }
 
-    @media (max-width: 600px) {
-        .form-conexao-wrapper {
-            margin: 16px auto;
-            padding: 24px 20px;
-            border-radius: 22px;
-        }
+    .conexao-app .conexao-abertura.saindo {
+        opacity: 0;
+        pointer-events: none;
+    }
 
-        .form-conexao-wrapper .row {
+    .conexao-app .conexao-abertura-titulo {
+        max-width: 620px;
+        margin: 0;
+        color: #ffffff;
+        text-align: center;
+        font-size: clamp(32px, 7vw, 56px);
+        font-weight: 600;
+        line-height: 1.12;
+        letter-spacing: -1.2px;
+        text-wrap: balance;
+    }
+
+    /*
+       Mobile em pé e deitado:
+       ocupa toda a largura e pelo menos toda a altura da tela.
+       O conteúdo continua com rolagem natural.
+    */
+    @media (max-width: 767px),
+           (max-width: 1024px) and (orientation: landscape) and (pointer: coarse) {
+        .conexao-app {
+            position: relative;
+            left: 50%;
+            width: 100vw;
+            max-width: none;
+            margin-left: -50vw;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 0;
+            display: flex;
             flex-direction: column;
-            gap: 24px;
         }
 
-        .form-conexao-wrapper .col {
+        .conexao-app .conexao-conteudo {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
             width: 100%;
+            max-width: none;
+        }
+
+        .conexao-app .conexao-cabecalho {
             margin: 0;
+            padding: 28px 20px 22px;
+            padding-top: max(28px, env(safe-area-inset-top));
+            padding-left: max(20px, env(safe-area-inset-left));
+            padding-right: max(20px, env(safe-area-inset-right));
+        }
+
+        .conexao-app .conexao-titulo {
+            font-size: clamp(26px, 5vw, 32px);
+            letter-spacing: -0.8px;
+        }
+
+        .conexao-app .form-conexao-wrapper {
+            flex: 1;
+            width: 100%;
+            padding: 26px 20px 32px;
+            padding-left: max(20px, env(safe-area-inset-left));
+            padding-right: max(20px, env(safe-area-inset-right));
+            padding-bottom: max(32px, env(safe-area-inset-bottom));
+            border: none;
+            border-top: 1px solid #e8e8ed;
+            border-radius: 24px 24px 0 0;
+            box-shadow: none;
+        }
+
+        .conexao-app .form-group {
+            margin-bottom: 22px;
+        }
+
+        .conexao-app .row {
+            gap: 16px;
+        }
+
+        .conexao-app .row-contato,
+        .conexao-app .row-endereco {
+            grid-template-columns: 1fr;
+            gap: 22px;
+        }
+    }
+
+    /* Em celulares deitados, aproveita a largura disponível. */
+    @media (min-width: 600px) and (max-width: 1024px)
+           and (orientation: landscape) and (pointer: coarse) {
+        .conexao-app .row-contato,
+        .conexao-app .row-endereco {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
         }
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .form-conexao-wrapper * {
+        .conexao-app * {
             transition: none !important;
         }
     }
 </style>
 
-<div class="form-conexao-wrapper">
+<div class="conexao-app" id="conexao-app">
     <div
-        id="msg-sucesso"
-        class="mensagem-sucesso"
-        role="status"
-        tabindex="-1"
+        class="conexao-abertura"
+        id="conexao-abertura"
+        aria-hidden="true"
         hidden
     >
-        Preenchido com sucesso!
+        <p class="conexao-abertura-titulo">
+            Formulário Cartão Conexão
+        </p>
     </div>
 
-    <button
-        type="button"
-        class="submit-btn"
-        id="btn-novo"
-        hidden
-    >
-        Novo preenchimento
-    </button>
+    <div class="conexao-conteudo" id="conexao-conteudo">
+        <header class="conexao-cabecalho">
+            <h1 class="conexao-titulo">
+                Formulário Cartão Conexão
+            </h1>
+        </header>
 
-    <form id="form-conexao" action="#" method="POST">
-        <div class="form-group">
-            <label for="campus">Campus</label>
-            <select id="campus" name="campus" required>
-                <option value="">Selecione o campus...</option>
-                <option value="Barueri">PAZ Church Barueri</option>
-                <option value="Alphaville">PAZ Church Alphaville</option>
-                <option value="Pq. Imperial">PAZ Church Pq. Imperial</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="nome">Nome completo</label>
-            <input
-                type="text"
-                id="nome"
-                name="nome"
-                autocomplete="name"
-                required
+        <div class="form-conexao-wrapper">
+            <div
+                id="msg-sucesso"
+                class="mensagem-sucesso"
+                role="status"
+                tabindex="-1"
+                hidden
             >
-        </div>
-
-        <div class="form-group row">
-            <div class="col">
-                <label for="idade">Idade</label>
-                <input
-                    type="number"
-                    id="idade"
-                    name="idade"
-                    min="0"
-                    required
-                >
+                Preenchido com sucesso!
             </div>
 
-            <div class="col">
-                <label for="sexo">Sexo</label>
-                <select id="sexo" name="sexo" required>
-                    <option value="">Selecione...</option>
-                    <option value="Feminino">Feminino</option>
-                    <option value="Masculino">Masculino</option>
-                </select>
-            </div>
-        </div>
+            <button
+                type="button"
+                class="submit-btn"
+                id="btn-novo"
+                hidden
+            >
+                Novo preenchimento
+            </button>
 
-        <div class="form-group row">
-            <div class="col">
-                <label for="whatsapp">WhatsApp</label>
-                <input
-                    type="tel"
-                    id="whatsapp"
-                    name="whatsapp"
-                    placeholder="(00) 00000-0000"
-                    maxlength="15"
-                    autocomplete="tel"
-                    required
-                >
-            </div>
+            <form id="form-conexao" action="#" method="POST">
+                <div class="form-group">
+                    <label for="campus">Campus</label>
+                    <select id="campus" name="campus" required>
+                        <option value="">Selecione o campus...</option>
+                        <option value="Barueri">PAZ Church Barueri</option>
+                        <option value="Alphaville">PAZ Church Alphaville</option>
+                        <option value="Pq. Imperial">PAZ Church Pq. Imperial</option>
+                    </select>
+                </div>
 
-            <div class="col">
-                <label for="data">Data</label>
-                <input
-                    type="date"
-                    id="data"
-                    name="data"
-                    required
-                >
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col">
-                <label for="bairro">Bairro</label>
-                <input
-                    type="text"
-                    id="bairro"
-                    name="bairro"
-                    required
-                >
-            </div>
-
-            <div class="col">
-                <label for="cidade">Cidade</label>
-                <input
-                    type="text"
-                    id="cidade"
-                    name="cidade"
-                    required
-                >
-            </div>
-        </div>
-
-        <fieldset class="form-group">
-            <legend>Novo convertido?</legend>
-
-            <div class="radio-group">
-                <label class="radio-item" for="novo-sim">
+                <div class="form-group">
+                    <label for="nome">Nome completo</label>
                     <input
-                        type="radio"
-                        id="novo-sim"
-                        name="novo_convertido"
-                        value="Sim"
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        autocomplete="name"
                         required
                     >
-                    <span>Sim</span>
-                </label>
+                </div>
 
-                <label class="radio-item" for="novo-nao">
+                <div class="form-group row">
+                    <div class="col">
+                        <label for="idade">Idade</label>
+                        <input
+                            type="number"
+                            id="idade"
+                            name="idade"
+                            min="0"
+                            inputmode="numeric"
+                            required
+                        >
+                    </div>
+
+                    <div class="col">
+                        <label for="sexo">Sexo</label>
+                        <select id="sexo" name="sexo" required>
+                            <option value="">Selecione...</option>
+                            <option value="Feminino">Feminino</option>
+                            <option value="Masculino">Masculino</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row row-contato">
+                    <div class="col">
+                        <label for="whatsapp">WhatsApp</label>
+                        <input
+                            type="tel"
+                            id="whatsapp"
+                            name="whatsapp"
+                            placeholder="(00) 00000-0000"
+                            maxlength="15"
+                            autocomplete="tel"
+                            required
+                        >
+                    </div>
+
+                    <div class="col">
+                        <label for="data">Data</label>
+                        <input
+                            type="date"
+                            id="data"
+                            name="data"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group row row-endereco">
+                    <div class="col">
+                        <label for="bairro">Bairro</label>
+                        <input
+                            type="text"
+                            id="bairro"
+                            name="bairro"
+                            required
+                        >
+                    </div>
+
+                    <div class="col">
+                        <label for="cidade">Cidade</label>
+                        <input
+                            type="text"
+                            id="cidade"
+                            name="cidade"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <fieldset class="form-group">
+                    <legend>Novo convertido?</legend>
+
+                    <div class="radio-group">
+                        <label class="radio-item" for="novo-sim">
+                            <input
+                                type="radio"
+                                id="novo-sim"
+                                name="novo_convertido"
+                                value="Sim"
+                                required
+                            >
+                            <span>Sim</span>
+                        </label>
+
+                        <label class="radio-item" for="novo-nao">
+                            <input
+                                type="radio"
+                                id="novo-nao"
+                                name="novo_convertido"
+                                value="Não"
+                            >
+                            <span>Não</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <legend>Gostaria de se envolver?</legend>
+
+                    <div class="radio-group">
+                        <label class="radio-item" for="envolver-sim">
+                            <input
+                                type="radio"
+                                id="envolver-sim"
+                                name="envolver"
+                                value="Sim"
+                                required
+                            >
+                            <span>Sim</span>
+                        </label>
+
+                        <label class="radio-item" for="envolver-nao">
+                            <input
+                                type="radio"
+                                id="envolver-nao"
+                                name="envolver"
+                                value="Não"
+                            >
+                            <span>Não</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <div class="form-group">
+                    <label for="obs">Observações</label>
+                    <textarea
+                        id="obs"
+                        name="obs"
+                        rows="4"
+                        placeholder="Alguma observação adicional?"
+                    ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="recebido_por">Preenchido por</label>
                     <input
-                        type="radio"
-                        id="novo-nao"
-                        name="novo_convertido"
-                        value="Não"
-                    >
-                    <span>Não</span>
-                </label>
-            </div>
-        </fieldset>
-
-        <fieldset class="form-group">
-            <legend>Gostaria de se envolver?</legend>
-
-            <div class="radio-group">
-                <label class="radio-item" for="envolver-sim">
-                    <input
-                        type="radio"
-                        id="envolver-sim"
-                        name="envolver"
-                        value="Sim"
+                        type="text"
+                        id="recebido_por"
+                        name="recebido_por"
                         required
                     >
-                    <span>Sim</span>
-                </label>
+                </div>
 
-                <label class="radio-item" for="envolver-nao">
-                    <input
-                        type="radio"
-                        id="envolver-nao"
-                        name="envolver"
-                        value="Não"
-                    >
-                    <span>Não</span>
-                </label>
-            </div>
-        </fieldset>
+                <div
+                    id="msg-erro"
+                    class="mensagem-erro"
+                    role="alert"
+                    hidden
+                ></div>
 
-        <div class="form-group">
-            <label for="obs">Observações</label>
-            <textarea
-                id="obs"
-                name="obs"
-                rows="4"
-                placeholder="Alguma observação adicional?"
-            ></textarea>
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="btn-enviar"
+                >
+                    Enviar
+                </button>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label for="recebido_por">Preenchido por</label>
-            <input
-                type="text"
-                id="recebido_por"
-                name="recebido_por"
-                required
-            >
-        </div>
-
-        <div
-            id="msg-erro"
-            class="mensagem-erro"
-            role="alert"
-            hidden
-        ></div>
-
-        <button
-            type="submit"
-            class="submit-btn"
-            id="btn-enviar"
-        >
-            Enviar
-        </button>
-    </form>
+    </div>
 </div>
 
 <script>
     (() => {
+        // Garante a adaptação à largura real do celular.
+        if (!document.querySelector('meta[name="viewport"]')) {
+            const viewport = document.createElement('meta');
+            viewport.name = 'viewport';
+            viewport.content = 'width=device-width, initial-scale=1';
+            document.head.appendChild(viewport);
+        }
+
+        const app = document.getElementById('conexao-app');
+        const abertura = app.querySelector('#conexao-abertura');
+        const conteudo = app.querySelector('#conexao-conteudo');
+        const form = app.querySelector('#form-conexao');
+        const btnEnviar = app.querySelector('#btn-enviar');
+        const btnNovo = app.querySelector('#btn-novo');
+        const msgSucesso = app.querySelector('#msg-sucesso');
+        const msgErro = app.querySelector('#msg-erro');
+        const whatsapp = app.querySelector('#whatsapp');
+
         const scriptURL =
             'https://script.google.com/macros/s/AKfycbyqSQBTiVJy5tbO4qyn68bpUjy5olvI-3x3SHUGUdLyXzopPozyDSME2dvnZQXuT4w/exec';
 
-        const form = document.getElementById('form-conexao');
-        const btnEnviar = document.getElementById('btn-enviar');
-        const btnNovo = document.getElementById('btn-novo');
-        const msgSucesso = document.getElementById('msg-sucesso');
-        const msgErro = document.getElementById('msg-erro');
-        const whatsapp = document.getElementById('whatsapp');
+        // Tela azul de abertura, seguida do formulário.
+        const reduzirMovimento = window.matchMedia(
+            '(prefers-reduced-motion: reduce)'
+        ).matches;
+
+        abertura.hidden = false;
+        conteudo.inert = true;
+
+        window.setTimeout(() => {
+            abertura.classList.add('saindo');
+
+            window.setTimeout(() => {
+                abertura.hidden = true;
+                conteudo.inert = false;
+            }, reduzirMovimento ? 0 : 400);
+        }, reduzirMovimento ? 400 : 1400);
 
         // Máscara do WhatsApp.
         whatsapp.addEventListener('input', (event) => {
@@ -518,7 +688,12 @@
                 form.hidden = true;
                 msgSucesso.hidden = false;
                 btnNovo.hidden = false;
+
                 msgSucesso.focus();
+                app.scrollIntoView({
+                    behavior: reduzirMovimento ? 'auto' : 'smooth',
+                    block: 'start'
+                });
             } catch (error) {
                 console.error(
                     'Erro ao enviar o formulário:',
@@ -557,7 +732,12 @@
             btnEnviar.textContent = 'Enviar';
             btnEnviar.disabled = false;
 
-            form.elements.nome.focus();
+            form.elements.nome.focus({ preventScroll: true });
+
+            app.scrollIntoView({
+                behavior: reduzirMovimento ? 'auto' : 'smooth',
+                block: 'start'
+            });
         });
     })();
 </script>
