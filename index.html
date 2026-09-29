@@ -145,12 +145,12 @@
         box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.14);
     }
 
-    /* Cada caixa ocupa somente a largura das respostas. */
+    /* Caixa compacta, limitada à largura das respostas. */
     .conexao-app .radio-group {
         display: inline-flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: 24px;
+        gap: 8px 24px;
         width: fit-content;
         max-width: 100%;
         margin: 2px 0 0;
@@ -261,7 +261,7 @@
         font-size: 14px;
     }
 
-    /* Tela azul exibida ao abrir o formulário. */
+    /* Tela azul de abertura. */
     .conexao-app .conexao-abertura {
         position: fixed;
         inset: 0;
@@ -291,11 +291,7 @@
         text-wrap: balance;
     }
 
-    /*
-       Mobile em pé e deitado:
-       ocupa toda a largura e pelo menos toda a altura da tela.
-       O conteúdo continua com rolagem natural.
-    */
+    /* Mobile: largura total e altura mínima de uma tela. */
     @media (max-width: 767px),
            (max-width: 1024px) and (orientation: landscape) and (pointer: coarse) {
         .conexao-app {
@@ -360,7 +356,7 @@
         }
     }
 
-    /* Em celulares deitados, aproveita a largura disponível. */
+    /* Aproveita a largura do celular deitado. */
     @media (min-width: 600px) and (max-width: 1024px)
            and (orientation: landscape) and (pointer: coarse) {
         .conexao-app .row-contato,
@@ -509,28 +505,28 @@
                 </div>
 
                 <fieldset class="form-group">
-                    <legend>Novo convertido?</legend>
+                    <legend>A pessoa é:</legend>
 
                     <div class="radio-group">
-                        <label class="radio-item" for="novo-sim">
+                        <label class="radio-item" for="tipo-novo-nascido">
                             <input
                                 type="radio"
-                                id="novo-sim"
+                                id="tipo-novo-nascido"
                                 name="novo_convertido"
-                                value="Sim"
+                                value="Novo nascido"
                                 required
                             >
-                            <span>Sim</span>
+                            <span>Novo nascido</span>
                         </label>
 
-                        <label class="radio-item" for="novo-nao">
+                        <label class="radio-item" for="tipo-convidado">
                             <input
                                 type="radio"
-                                id="novo-nao"
+                                id="tipo-convidado"
                                 name="novo_convertido"
-                                value="Não"
+                                value="Convidado"
                             >
-                            <span>Não</span>
+                            <span>Convidado</span>
                         </label>
                     </div>
                 </fieldset>
@@ -663,6 +659,7 @@
         });
 
         // Envio para o Google Sheets.
+        // O campo novo_convertido envia "Novo nascido" ou "Convidado".
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
@@ -690,6 +687,7 @@
                 btnNovo.hidden = false;
 
                 msgSucesso.focus();
+
                 app.scrollIntoView({
                     behavior: reduzirMovimento ? 'auto' : 'smooth',
                     block: 'start'
